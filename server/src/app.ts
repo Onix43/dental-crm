@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { pinoLogger } from "./middlewares/pinoLogger.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 export const app = express();
 
@@ -8,11 +9,14 @@ export const app = express();
 app.use(pinoLogger);
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 //Routes
 
-//Add api routes
 //Test route
 app.get("/api/health", (req, res) => {
-  res.status(200).json({ success: "true" });
+  res.status(200).json({ success: true });
 });
+
+//Error handler
+app.use(errorHandler);
