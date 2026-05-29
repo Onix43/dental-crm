@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { pinoLogger } from "./middlewares/pinoLogger.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import cookieParser from "cookie-parser";
 
 export const app = express();
 
@@ -10,6 +11,7 @@ app.use(pinoLogger);
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //Routes
 
