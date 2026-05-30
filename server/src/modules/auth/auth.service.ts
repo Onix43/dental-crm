@@ -57,3 +57,9 @@ export async function refreshUserService(refreshToken: string) {
     throw createHttpError(401, "Invalid or expired refresh token");
   }
 }
+
+export async function authMeService(userId: string) {
+  const user = await User.findById(userId);
+
+  return user;
+}

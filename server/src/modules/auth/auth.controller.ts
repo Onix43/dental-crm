@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import {
+  authMeService,
   loginUserService,
   refreshUserService,
   registerUserService,
@@ -70,4 +71,13 @@ export async function logoutUserController(
   res.clearCookie("refreshToken", { ...cookieOptions, maxAge: 0 });
 
   res.status(200).json({ message: "Successfully logged out" });
+}
+
+export async function authMeController(req: Request, res: Response) {
+  const id = req.user?.id;
+
+  if (!id) throw createHttpError(401, "Unauthorized");
+
+  const user = await authMeService(id);
+  res.status(200).json(user);
 }
